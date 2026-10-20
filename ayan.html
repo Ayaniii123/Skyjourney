@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sky Journey | Explore the World</title>
+<meta name="description" content="Book flights to the world’s most beautiful places.">
+<meta name="theme-color" content="#06152f">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sky Journey | Explore the World">
+<meta property="og:description" content="Honeymoon, family and budget trips from Hunza and Skardu to Paris, Tokyo and Bali.">
+<meta property="og:image" content="https://images.pexels.com/photos/24709677/pexels-photo-24709677.jpeg?auto=compress&cs=tinysrgb&w=1200">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%2365e7ff' d='M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--cyan:#65e7ff;--white:#f5fbff;--top:#030817;--mid:#102b55;--bot:#236a94;--glow:#176f9a;--bg:#06152f;--card:#0c2447;--ink:#f5fbff;--sub:#b8cee6}
+[data-theme=sunset]{--cyan:#ffb36b;--top:#2b1040;--mid:#a3416b;--bot:#ff9a56;--glow:#ffcf7a;--bg:#2b1040;--card:#4a1d54}
+[data-theme=day]{--cyan:#ffe27a;--top:#2f7fd0;--mid:#5aa9ec;--bot:#a8dcff;--glow:#fff;--bg:#1d5a9e;--card:#2a6fb8}
+body{font-family:Arial,sans-serif;color:var(--ink);background:var(--bg);overflow-x:hidden;transition:background .6s}
+html{scroll-behavior:smooth}
+.sky{min-height:100vh;position:relative;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;
+background:radial-gradient(ellipse at 50% 100%,var(--glow) 0%,transparent 45%),linear-gradient(180deg,var(--top) 0%,var(--mid) 48%,var(--bot) 100%)}
+.hero-photo{position:absolute;inset:0;z-index:-2;overflow:hidden;background:#0a1a3a}
+.slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;animation:fade 18s infinite,kb 18s linear infinite}
+.slide:nth-child(2){animation-delay:6s}.slide:nth-child(3){animation-delay:12s}
+@keyframes fade{0%{opacity:0}8%{opacity:1}33%{opacity:1}41%{opacity:0}100%{opacity:0}}
+@keyframes kb{from{transform:scale(1) translateX(-2.5%)}to{transform:scale(1.15) translateX(2.5%)}}
+.jet{display:none!important}
+.hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#030817e0 0%,#030817a0 45%,#03081730 100%)}
+body.launched .slide{animation-duration:6s,6s}
+.sky::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.2;background-image:radial-gradient(white 1px,transparent 1px),radial-gradient(#9cecff 1px,transparent 1px);background-size:90px 90px,137px 137px;background-position:0 0,40px 60px;animation:stars 30s linear infinite}
+[data-theme=day] .sky::before{opacity:.1}
+@keyframes stars{to{background-position:90px 90px,177px 197px}}
+nav{width:min(1150px,90%);margin:auto;padding:24px 0;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:6;gap:14px}
+.logo{font-size:23px;font-weight:800;letter-spacing:2px}.logo span{color:var(--cyan)}
+.links{display:flex;gap:22px;align-items:center}
+.links a{color:#fff;text-decoration:none;opacity:.8;font-size:13px;letter-spacing:1px}.links a:hover{opacity:1;color:var(--cyan)}
+.icon-btn{background:#ffffff14;border:1px solid #ffffff40;color:#fff;border-radius:8px;padding:9px 13px;font-size:13px;cursor:pointer}
+.burger{display:none}
+button{cursor:pointer;font-size:14px;font-weight:bold;border-radius:8px;padding:16px 23px;transition:.25s;font-family:inherit}
+.par{position:absolute;inset:0;pointer-events:none;transition:transform .2s ease-out}
+.plane{position:absolute;width:44px;fill:#fff;filter:drop-shadow(0 4px 8px #0006);animation:fly linear infinite;animation-duration:calc(var(--d)/var(--boost,1));left:-100px}
+.plane.one{top:22%;--d:19s}.plane.two{top:42%;width:30px;opacity:.7;--d:27s;animation-delay:-12s}.plane.three{top:68%;width:22px;opacity:.5;--d:32s;animation-delay:-7s}
+@keyframes fly{0%{transform:translateX(-100px) translateY(0) rotate(85deg)}50%{transform:translateX(55vw) translateY(-30px) rotate(90deg)}100%{transform:translateX(calc(100vw + 150px)) translateY(10px) rotate(93deg)}}
+.cloud{position:absolute;width:280px;height:90px;opacity:.3;filter:blur(14px);background:radial-gradient(ellipse at 28% 62%,#fff 0,transparent 62%),radial-gradient(ellipse at 58% 40%,#fff 0,transparent 62%),radial-gradient(ellipse at 80% 66%,#fff 0,transparent 56%);animation:cm 45s linear infinite}
+.cloud.one{top:12%;left:-200px}.cloud.two{top:55%;left:-300px;width:440px;height:140px;animation-duration:65s;animation-delay:-25s}.cloud.three{top:78%;left:-200px;width:200px;height:65px;animation-duration:52s;animation-delay:-10s}
+@keyframes cm{from{transform:translateX(0)}to{transform:translateX(calc(100vw + 500px))}}
+body.launched{--boost:4}
+body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused!important}
+.hero{width:min(1100px,90%);margin:auto;flex:1;display:flex;align-items:center;position:relative;z-index:2;padding:30px 0}
+.hero-content{max-width:650px}
+.tag{display:inline-block;padding:10px 15px;border:1px solid #ffffff44;background:#ffffff10;border-radius:30px;color:var(--cyan);font-size:12px;letter-spacing:2px;margin-bottom:24px}
+h1{font-size:clamp(42px,8vw,84px);line-height:1.02;letter-spacing:-3px;margin-bottom:22px}
+h1 span{color:var(--cyan);text-shadow:0 0 35px #ffffff40}
+.description{color:#e0ecfa;line-height:1.9;font-size:16px;max-width:480px;margin-bottom:28px}
+.actions{display:flex;gap:14px;flex-wrap:wrap}
+.primary{border:0;background:var(--cyan);color:#06152f;box-shadow:0 0 25px #ffffff30}
+.primary:hover{transform:translateY(-3px);box-shadow:0 0 35px #ffffff70}
+.secondary{background:#ffffff08;color:#fff;border:1px solid #ffffff50}.secondary:hover{background:#ffffff18}
+#message{margin-top:18px;color:var(--cyan);font-size:13px;min-height:18px}
+.search{width:min(1100px,90%);margin:0 auto 26px;position:relative;z-index:3;display:grid;grid-template-columns:repeat(4,1fr) auto;gap:12px;background:#03112680;backdrop-filter:blur(12px);border:1px solid #ffffff30;border-radius:14px;padding:16px}
+.search label{display:block;font-size:10px;letter-spacing:1.5px;color:var(--sub);margin-bottom:6px}
+.search input,.search select,.modal input,.news input{width:100%;padding:13px;border-radius:8px;border:1px solid #ffffff30;background:#ffffff12;color:#fff;font-size:14px;font-family:inherit}
+.search select option{color:#000}
+.search input::placeholder,.modal input::placeholder,.news input::placeholder{color:#ffffff80}
+.search button{align-self:end}
+.bottom{padding:20px 5%;border-top:1px solid #ffffff20;background:#03112670;backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:4}
+.stat strong{display:block;font-size:20px;margin-bottom:5px}.stat small{color:var(--sub);font-size:11px;letter-spacing:1px}
+.status{color:var(--cyan);font-size:12px;letter-spacing:1px}
+section.blk{width:min(1100px,90%);margin:auto;padding:80px 0 10px}
+h2{font-size:clamp(28px,4vw,42px);letter-spacing:-1px;margin-bottom:8px}
+.sub{color:var(--sub);margin-bottom:26px;line-height:1.7}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.chip{background:#ffffff10;border:1px solid #ffffff35;color:#fff;padding:9px 16px;border-radius:30px;font-size:13px}
+.chip.on{background:var(--cyan);color:#06152f;border-color:var(--cyan)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid #ffffff22;border-radius:16px;overflow:hidden;transition:.25s}
+.card:hover{transform:translateY(-6px);box-shadow:0 14px 34px #0006}
+.pic{height:180px;position:relative;display:grid;place-items:center;overflow:hidden}.pic span{font-weight:bold;font-size:20px;letter-spacing:1px}.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}.card:hover .pic img{transform:scale(1.07)}.pic::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 55%,#0007)}.badge{position:absolute;top:12px;left:12px;z-index:2;font-style:normal;background:#0009;backdrop-filter:blur(6px);padding:5px 11px;border-radius:20px;font-size:11px;letter-spacing:1px;text-transform:uppercase}
+.cb{padding:18px}.cb h3{margin-bottom:4px}.cb small{color:var(--cyan);font-size:11px;letter-spacing:1px}
+.cb p{color:var(--sub);font-size:14px;line-height:1.6;margin:10px 0 16px}
+.row{display:flex;justify-content:space-between;align-items:center}.row b{font-size:18px}
+.row button{padding:10px 16px;font-size:13px}
+.meta{display:block;color:var(--sub);font-size:12px;margin:-6px 0 14px}.btns{display:flex;gap:8px}.dpic{height:200px;border-radius:10px;background-size:cover;background-position:center;margin-bottom:14px;background-color:#ffffff12}.specs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.specs div{background:#ffffff10;border-radius:10px;padding:10px}.specs small{display:block;color:var(--sub);font-size:10px;letter-spacing:1px;margin-bottom:4px}.specs b{font-size:13px}.note{color:var(--sub);font-size:11px;margin:12px 0}
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.why div{background:var(--card);border:1px solid #ffffff22;border-radius:14px;padding:22px}.why svg{width:34px;height:34px;fill:var(--cyan);margin-bottom:12px}.why h3{margin-bottom:6px;font-size:17px}.why p{color:var(--sub);font-size:14px;line-height:1.6}
+.faq details{background:var(--card);border:1px solid #ffffff22;border-radius:12px;padding:16px 18px;margin-bottom:10px}.faq summary{cursor:pointer;font-weight:bold;list-style:none}.faq summary::after{content:"+";float:right;color:var(--cyan);font-size:20px;line-height:1}.faq details[open] summary::after{content:"–"}.faq p{color:var(--sub);line-height:1.7;margin-top:10px;font-size:14px}
+html[lang=ur] body,html[lang=ur] button,html[lang=ur] input,html[lang=ur] select{font-family:'Noto Naskh Arabic',Tahoma,Arial,sans-serif}html[lang=ur] *{letter-spacing:0!important}html[lang=ur] .description,html[lang=ur] .sub,html[lang=ur] .cb p{line-height:2.1}
+html[dir=rtl] .hero-photo::after{background:linear-gradient(270deg,#030817e0 0%,#030817a0 45%,#03081730 100%)}html[dir=rtl] .faq summary::after{float:left}html[dir=rtl] .links{right:auto;left:0}
+#chk{position:fixed;inset:0;z-index:80;background:#0b1f3f;overflow:auto;padding:20px;display:none}#chk.open{display:block}#chk .in{max-width:900px;margin:auto}#chk table{width:100%;border-collapse:collapse;margin:14px 0}#chk td,#chk th{padding:8px;border-bottom:1px solid #ffffff30;text-align:left;font-size:14px}#chk img{width:90px;height:60px;object-fit:cover;border-radius:6px;vertical-align:middle}.ok{color:#5dff9a;font-weight:bold}.bad{color:#ff7b7b;font-weight:bold}
+#fixBar{position:fixed;top:0;left:0;right:0;z-index:70;background:#ffb36b;color:#06152f;padding:11px;text-align:center;font-weight:bold;text-decoration:none;font-size:14px;display:none}#chk input[type=file]{margin:10px 0;color:#fff}
+.jet{position:absolute;left:0;display:flex;align-items:center;animation:jet linear infinite;animation-duration:calc(var(--d)/var(--boost,1));filter:drop-shadow(0 10px 14px #0007)}
+.jet svg{width:var(--w);height:auto;display:block}
+.jet .trail{width:calc(var(--w)*1.1);height:7px;margin-right:-16px;border-radius:7px;background:linear-gradient(90deg,transparent,#ffffffb0 70%,#fff);filter:blur(2px)}
+.jet.big{top:19%;--d:17s;--w:300px}.jet.small{top:58%;--d:27s;--w:130px;opacity:.65;animation-delay:-11s}
+@keyframes jet{0%{transform:translate(-120%,40px) rotate(-3deg)}100%{transform:translate(calc(100vw + 200px),-70px) rotate(-3deg)}}
+@media(max-width:800px){.jet.big{--w:190px;top:14%}.jet.small{--w:90px}}
+#packages .pk div{text-align:left}#packages .pk button{margin-top:14px;padding:10px 16px;font-size:13px}
+.est{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}.est-form,.est-out{background:var(--card);border:1px solid #ffffff22;border-radius:16px;padding:22px}
+.est-form{display:grid;grid-template-columns:1fr 1fr;gap:16px}.est label{font-size:11px;letter-spacing:1px;color:var(--sub);display:block}
+.est select{width:100%;margin-top:6px;padding:12px;border-radius:8px;border:1px solid #ffffff30;background:#ffffff12;color:#fff;font-size:14px;font-family:inherit}.est select option{color:#000}
+.est input[type=range]{width:100%;margin-top:12px;accent-color:var(--cyan)}.est label b{color:#fff;font-size:14px}
+.est-out .big{font-size:clamp(30px,5vw,44px);font-weight:800;color:var(--cyan);margin:8px 0}.est-out small{color:var(--sub);letter-spacing:1px;font-size:11px}
+.wabtn{background:#25d366;color:#fff;border:0}.btnlink{display:inline-block;padding:16px 23px;border-radius:8px;font-weight:bold;font-size:14px;text-decoration:none;color:#fff}.btnlink.sec{border:1px solid #ffffff50;background:#ffffff08}
+.thumbs{display:flex;gap:8px;margin:-4px 0 12px}.thumbs img{width:64px;height:44px;object-fit:cover;border-radius:6px;cursor:pointer;border:1px solid #ffffff40}
+@media(max-width:800px){.est{grid-template-columns:1fr}.est-form{grid-template-columns:1fr}}
+#adm{position:fixed;inset:0;z-index:85;background:#0b1f3f;overflow:auto;padding:18px;display:none}#adm.open{display:block}
+#adm .in{max-width:900px;margin:auto}.adm-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px}.adm-btns{display:flex;gap:8px}
+.adm-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.adm-card{background:var(--card);border:1px solid #ffffff22;border-radius:14px;padding:18px;margin-bottom:14px}.adm-card h3{margin-bottom:8px}
+.adm-row{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid #ffffff1c}.adm-row img{width:64px;height:44px;object-fit:cover;border-radius:6px;background:#ffffff15}.adm-row .grow{flex:1}.adm-row button,.adm-pair button{padding:8px 12px;font-size:12px}
+.adm-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.adm-grid .wide{grid-column:1/-1}#adm label{display:block;font-size:11px;letter-spacing:.5px;color:var(--sub)}
+#adm input:not([type=checkbox]),#adm select,#adm textarea{width:100%;margin-top:5px;padding:11px;border-radius:8px;border:1px solid #ffffff30;background:#ffffff12;color:#fff;font-size:14px;font-family:inherit}#adm select option{color:#000}
+#adm .chk{display:inline-block;margin:6px 14px 0 0;font-size:13px;color:#fff}.adm-pair{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-bottom:10px;align-items:start}
+#adm .actions{display:flex;gap:10px;flex-wrap:wrap}.adm-card p{color:var(--sub);margin:6px 0 12px;line-height:1.6}
+@media(max-width:700px){.adm-grid,.adm-pair{grid-template-columns:1fr}}
+
+.empty{color:var(--sub);padding:30px 0}
+.rev{background:var(--card);border:1px solid #ffffff22;border-radius:16px;padding:30px;text-align:center}
+.av{width:68px;height:68px;border-radius:50%;margin:0 auto 14px;background:var(--cyan);color:#06152f;display:grid;place-items:center;font-weight:bold;position:relative;overflow:hidden}.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.rev p{font-size:19px;line-height:1.7;margin-bottom:14px;min-height:96px}.rev small{color:var(--cyan)}
+.rev-nav{display:flex;justify-content:center;gap:12px;margin-top:18px}
+.news{display:flex;gap:12px;flex-wrap:wrap}.news input{flex:1;min-width:220px}
+footer{margin-top:80px;border-top:1px solid #ffffff22;background:#00000030;padding:40px 5% 24px}
+.fgrid{width:min(1100px,100%);margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
+.fgrid h4{margin-bottom:12px;font-size:13px;letter-spacing:1.5px;color:var(--cyan)}
+.fgrid a{display:block;color:var(--sub);text-decoration:none;font-size:14px;margin-bottom:8px}.fgrid a:hover{color:#fff}
+.copy{text-align:center;color:var(--sub);font-size:12px;margin-top:28px}
+.overlay{position:fixed;inset:0;background:#000a;display:none;place-items:center;z-index:50;padding:16px}
+.overlay.open{display:grid}
+.modal{background:var(--card);border:1px solid #ffffff33;border-radius:16px;padding:26px;width:min(420px,100%)}
+.modal h3{margin-bottom:6px}.modal .tot{color:var(--cyan);margin:10px 0 16px}
+.modal input{margin-bottom:12px}.modal .row{gap:10px;justify-content:flex-end}
+.wa{position:fixed;right:18px;bottom:18px;z-index:45;width:56px;height:56px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 6px 20px #0006;transition:.25s}.wa:hover{transform:scale(1.08)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--cyan);color:#06152f;padding:13px 20px;border-radius:10px;font-weight:bold;font-size:14px;z-index:60;transition:.35s;max-width:90%;text-align:center}
+.toast.show{transform:translate(-50%,0)}
+#top{position:fixed;right:18px;bottom:88px;z-index:40;display:none;padding:12px 15px;border-radius:50%}
+@media(max-width:800px){
+.burger{display:block}
+.links{display:none;position:absolute;top:70px;right:0;flex-direction:column;align-items:flex-start;background:#031126f0;border:1px solid #ffffff30;border-radius:12px;padding:18px;width:200px}
+.links.open{display:flex}
+.search{grid-template-columns:1fr 1fr}.search button{grid-column:1/-1}
+.fgrid{grid-template-columns:1fr}
+.bottom{flex-wrap:wrap}.status{display:none}.stat strong{font-size:17px}.stat small{font-size:9px}
+h1{letter-spacing:-2px}.description{font-size:14px}}
+@media(prefers-reduced-motion:reduce){.sky::before,.slide{animation:none!important}.slide:first-child{opacity:1}html{scroll-behavior:auto}}
+</style>
+<script id="embedData">window.EMBED={};</script>
+</head>
+<body>
+<main class="sky" id="sky">
+  <div class="hero-photo"><div class="slide" style="background-image:url('https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&w=1920'),url(images/plane1.jpg)"></div><div class="slide" style="background-image:url('https://images.pexels.com/photos/674783/pexels-photo-674783.jpeg?auto=compress&cs=tinysrgb&w=1920'),url(images/plane2.jpg)"></div><div class="slide" style="background-image:url('https://images.pexels.com/photos/24709677/pexels-photo-24709677.jpeg?auto=compress&cs=tinysrgb&w=1920'),url(images/plane3.jpg)"></div></div>
+  <nav>
+    <div class="logo">SKY<span>JOURNEY</span></div>
+    <div class="links" id="links">
+      <a href="#destinations">DESTINATIONS</a>
+      <a href="#reviews">REVIEWS</a>
+      <a href="#newsletter">NEWSLETTER</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">CONTACT</a>
+      <button class="icon-btn" id="themeBtn" aria-label="Change sky theme">Night</button>
+      <button class="icon-btn" id="ccyBtn" aria-label="Currency">USD</button>
+      <button class="icon-btn" id="langBtn" aria-label="Language">اردو</button>
+    </div>
+    <button class="icon-btn burger" id="burger" aria-label="Menu">☰</button>
+  </nav>
+
+  <div class="par" data-depth="14"><div class="cloud one"></div><div class="cloud two"></div><div class="cloud three"></div></div>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="fus" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#e9eff6"/><stop offset="1" stop-color="#aeb9c7"/></linearGradient>
+<linearGradient id="wing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d6dee8"/><stop offset="1" stop-color="#8795a8"/></linearGradient>
+<g id="airliner">
+ <path d="M40 66 L150 70 L268 70 L214 108 L176 110 Z" fill="url(#wing)"/>
+ <path d="M30 62 L6 74 L26 76 L66 68 Z" fill="#9aa8ba"/>
+ <path d="M18 58 L66 50 C150 41 300 41 362 50 C388 54 400 60 400 64 C400 69 388 75 362 79 C300 88 150 88 66 79 L18 71 Z" fill="url(#fus)"/>
+ <path d="M18 58 L6 12 L40 12 L84 52 Z" fill="var(--cyan,#65e7ff)"/>
+ <path d="M40 12 L6 12 L8 18 L44 18 Z" fill="#06152f" opacity=".25"/>
+ <path d="M62 69 L368 69" stroke="var(--cyan,#65e7ff)" stroke-width="3.5" fill="none" opacity=".9"/>
+ <ellipse cx="216" cy="92" rx="27" ry="10.5" fill="#b9c4d2"/><ellipse cx="238" cy="92" rx="5" ry="8.5" fill="#44546a"/>
+ <path d="M350 54 L372 56 L376 61 L352 60 Z" fill="#26384f"/>
+ <g fill="#4d6f98"><circle cx="100" cy="59" r="2.3"/><circle cx="114" cy="59" r="2.3"/><circle cx="128" cy="59" r="2.3"/><circle cx="142" cy="59" r="2.3"/><circle cx="156" cy="59" r="2.3"/><circle cx="170" cy="59" r="2.3"/><circle cx="184" cy="59" r="2.3"/><circle cx="198" cy="59" r="2.3"/><circle cx="212" cy="59" r="2.3"/><circle cx="226" cy="59" r="2.3"/><circle cx="240" cy="59" r="2.3"/><circle cx="254" cy="59" r="2.3"/><circle cx="268" cy="59" r="2.3"/><circle cx="282" cy="59" r="2.3"/><circle cx="296" cy="59" r="2.3"/><circle cx="310" cy="59" r="2.3"/><circle cx="324" cy="59" r="2.3"/></g>
+</g></defs></svg>
+<div class="par" data-depth="26" aria-hidden="true">
+    <div class="jet big"><div class="trail"></div><svg viewBox="0 0 410 125" aria-hidden="true"><use href="#airliner"/></svg></div>
+    <div class="jet small"><div class="trail"></div><svg viewBox="0 0 410 125" aria-hidden="true"><use href="#airliner"/></svg></div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="tag">YOUR NEXT ADVENTURE STARTS HERE</div>
+      <h1>TOUCH THE<br><span>SKY.</span> FEEL<br>THE FREEDOM.</h1>
+      <p class="description">The world is bigger than you imagine. Discover new horizons, chase the clouds, and let your dreams take flight. Your journey begins with a single click.</p>
+      <div class="actions">
+        <button class="primary" id="startBtn">START JOURNEY</button>
+        <button class="secondary" id="pauseBtn">Ⅱ PAUSE SKY</button>
+      </div>
+      <p id="message" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <form class="search" id="searchForm">
+    <div><label for="from">FROM</label><input id="from" placeholder="e.g. Islamabad"></div>
+    <div><label for="to">TO</label><input id="to" placeholder="e.g. Tokyo" list="dl"><datalist id="dl"></datalist></div>
+    <div><label for="date">DEPART</label><input id="date" type="date"></div>
+    <div><label for="pax">TRAVELERS</label><select id="pax"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+    <button class="primary" type="submit">SEARCH</button>
+  </form>
+
+  <footer class="bottom">
+    <div class="stat"><strong>∞</strong><small>ENDLESS POSSIBILITIES</small></div>
+    <div class="stat"><strong>01</strong><small>YOUR NEXT CHAPTER</small></div>
+    <div class="stat"><strong>100%</strong><small>PURE FREEDOM</small></div>
+    <div class="status" id="status">● SKY IS ACTIVE</div>
+  </footer>
+</main>
+
+<section class="blk" id="destinations">
+  <h2>Popular Destinations</h2>
+  <p class="sub" id="resultInfo">Pick a place and book your seat.</p>
+  <div class="chips" id="chips"></div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section class="blk" id="packages">
+  <h2>Trip Packages</h2>
+  <p class="sub">Pick the style of trip that fits you.</p>
+  <div class="why pk"><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.2 3 4.5 6.6 4.5c2 0 3.4 1.1 4.2 2.4h.4c.8-1.3 2.2-2.4 4.2-2.4 3.6 0 5.7 3.7 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg><h3>Honeymoon trips</h3><p>Romantic beaches, city lights and quiet valleys.</p><button class="secondary" data-pkg="honeymoon">See trips</button></div><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm-8 0a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm0 2c-2.3 0-7 1.2-7 3.5V19h14v-2.5C15 14.2 10.3 13 8 13zm8 0c-.3 0-.6 0-1 .1 1.2.8 2 1.9 2 3.4V19h6v-2.5c0-2.3-4.7-3.5-7-3.5z"/></svg><h3>Family trips</h3><p>Easy, safe and fun for every age.</p><button class="secondary" data-pkg="family">See trips</button></div><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 7H5a1 1 0 0 1 0-2h14V3H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h16a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zm-3 9a1.5 1.5 0 1 1 1.5-1.5A1.5 1.5 0 0 1 18 16z"/></svg><h3>Budget trips</h3><p>Great places that keep costs low.</p><button class="secondary" data-pkg="budget">See trips</button></div></div>
+</section>
+
+<section class="blk" id="estimator">
+  <h2>Trip Cost Estimator</h2>
+  <p class="sub">Get a quick idea of your budget. The final price is confirmed on WhatsApp.</p>
+  <div class="est">
+    <div class="est-form">
+      <label>Destination<select id="eDest"></select></label>
+      <label>Travelers<select id="eTrav"></select></label>
+      <label>Nights <b id="eNightsV"></b><input type="range" id="eNights" min="2" max="14" value="4"></label>
+      <label>Hotel class<select id="eHotel"><option value="0.8">Budget</option><option value="1" selected>Standard</option><option value="1.6">Luxury</option></select></label>
+    </div>
+    <div class="est-out">
+      <small>ESTIMATED TOTAL</small>
+      <div id="eTotal" class="big"></div>
+      <p class="note">Estimate only. Flights, visa and extras can change the final price.</p>
+      <div class="actions"><button class="primary" id="eBook">Book this trip</button><button id="eWa" class="wabtn">Send on WhatsApp</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="reviews">
+  <h2>Loved by Travelers</h2>
+  <p class="sub">Real stories from people who took off with us.</p>
+  <div class="rev"><div class="av" id="revAv"></div><p id="revText"></p><small id="revWho"></small>
+    <div class="rev-nav"><button class="secondary" id="prev">‹ Prev</button><button class="secondary" id="next">Next ›</button></div>
+  </div>
+</section>
+
+<section class="blk" id="why">
+  <h2>Why Travel With Us</h2>
+  <p class="sub">Simple, clear and always one message away.</p>
+  <div class="why"><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg><h3>WhatsApp support</h3><p>Message us on WhatsApp and skip long forms.</p></div><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-2 15-5-5 1.4-1.4L10 14.2l7.6-7.6L19 8z"/></svg><h3>Simple booking</h3><p>Pick a destination, send your details, and we handle the rest.</p></div><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><h3>Handpicked places</h3><p>From Hunza and Skardu to Paris and Singapore, chosen for great views.</p></div><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4zm-2 16-4-4 1.4-1.4L10 14.2l6.6-6.6L18 9l-8 8z"/></svg><h3>Clear details</h3><p>See duration, best season and flight time before you decide.</p></div></div>
+</section>
+
+<section class="blk faq" id="faq">
+  <h2>Frequently Asked Questions</h2>
+  <p class="sub"></p>
+  <div id="faqList"></div>
+</section>
+
+<section class="blk" id="contact">
+  <h2>Contact Us</h2>
+  <p class="sub">Reach us on WhatsApp or email. We reply as soon as we can.</p>
+  <div class="actions"><a class="btnlink wabtn" id="cWa" target="_blank" rel="noopener">Chat on WhatsApp</a><a class="btnlink sec" href="mailto:sultankhan4780615@gmail.com">Send an email</a></div>
+  <p class="sub" style="margin-top:14px" id="cInfo">WhatsApp: 0348 4780615 &nbsp;·&nbsp; sultankhan4780615@gmail.com</p>
+</section>
+
+<section class="blk" id="newsletter">
+  <h2>Get Flight Deals</h2>
+  <p class="sub">Join our newsletter for weekly offers. No spam.</p>
+  <form class="news" id="newsForm"><input id="newsEmail" type="email" placeholder="you@example.com" aria-label="Email"><button class="primary" type="submit">SUBSCRIBE</button></form>
+</section>
+
+<footer>
+  <div class="fgrid">
+    <div><div class="logo">SKY<span>JOURNEY</span></div><p class="sub" style="margin-top:10px">Touch the sky. Feel the freedom.</p></div>
+    <div><h4>EXPLORE</h4><a href="#destinations">Destinations</a><a href="#reviews">Reviews</a><a href="#newsletter">Newsletter</a></div>
+    <div><h4>COMPANY</h4><a href="#" data-doc="about">About</a><a href="#" id="fWa">WhatsApp: 0348 4780615</a><a href="mailto:sultankhan4780615@gmail.com" id="fMail">Contact: sultankhan4780615@gmail.com</a><a href="#" data-doc="privacy">Privacy</a><a href="#" data-doc="terms">Terms</a></div>
+  </div>
+  <p class="copy">© 2026 Sky Journey. All rights reserved. · <a href="#admin" id="admLink" style="color:inherit;opacity:.6">Admin</a></p>
+  <p class="copy">Photos: Pexels (free license). Hunza Valley by Alllexxxis, CC BY-SA 4.0. Istanbul, Paris and Singapore photos from Wikimedia Commons (see each file page for author and license).</p>
+</footer>
+
+<div class="overlay" id="overlay">
+  <form class="modal" id="bookForm">
+    <h3 id="mTitle"></h3><small id="mSub" style="color:var(--sub)"></small>
+    <p class="tot" id="mTotal"></p>
+    <input id="bName" placeholder="Full name" aria-label="Full name">
+    <input id="bEmail" type="email" placeholder="Email" aria-label="Email">
+    <div class="row"><button type="button" class="secondary" id="mCancel">Cancel</button><button type="button" id="mWa" style="background:#25d366;color:#fff;border:0">WhatsApp</button><button class="primary" type="submit">Confirm Booking</button></div>
+  </form>
+</div>
+
+<a class="wa" id="waFloat" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" width="30" height="30" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 1.8a8.2 8.2 0 1 1-4.3 15.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 0 1 12 3.8z"/><path d="M16.5 14.4c-.3-.1-1.7-.8-2-.9s-.5-.1-.7.1-.8.9-1 1.1-.4.2-.6.1a7.9 7.9 0 0 1-3.9-3.4c-.3-.5.3-.5.8-1.6.1-.2 0-.4 0-.5l-.9-2.1c-.2-.5-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.7 3.7 0 0 0-1.1 2.7 6.4 6.4 0 0 0 1.4 3.4 14.6 14.6 0 0 0 5.6 4.9c2 .8 2.8.9 3.8.7a3.2 3.2 0 0 0 2.1-1.5 2.6 2.6 0 0 0 .2-1.5c-.1-.1-.3-.2-.6-.4z"/></svg></a>
+<button class="primary" id="top" aria-label="Back to top">↑</button>
+<div class="overlay" id="dOverlay"><div class="modal" style="width:min(520px,100%);max-height:92vh;overflow:auto">
+  <div class="dpic" id="dPic"></div><div class="thumbs" id="dThumbs"></div><h3 id="dTitle"></h3><small id="dSub" style="color:var(--sub)"></small>
+  <div class="specs" id="dSpecs"></div><p id="dHi" style="line-height:1.7;font-size:14px"></p>
+  <p class="note">Prices and details are approximate samples. Confirm the exact package on WhatsApp before paying.</p>
+  <p class="note">Visa rules change often. Always confirm with the embassy before booking.</p>
+  <div class="row"><button class="secondary" id="dClose">Close</button><button class="primary" id="dBook">Book now</button></div>
+</div></div>
+<a id="fixBar" href="#check">Photos are not showing? Tap here to fix them</a>
+<div id="chk"><div class="in">
+  <h2>Photo check</h2>
+  <p class="sub">Har photo internet (Remote) ya images folder (Local) se aati hai. Kam az kam ek OK hona chahiye. Is panel ko kholne ke liye address ke aakhir mein <b>#check</b> likho, band karne ke liye Close dabao.</p>
+  <table id="chkT"><tr><th>Photo</th><th>Remote (internet)</th><th>Local (images folder)</th></tr></table>
+  <p id="chkSum"></p>
+  <div class="actions" style="margin-top:14px"><button class="primary" id="chkAuto">1-click: sab photos khud download karo</button></div>
+  <p class="sub" id="autoMsg"></p>
+  <p class="sub" style="margin-top:14px"><b>Agar upar wala na chale:</b> apni photos (maldives.jpg, swiss-alps.jpg, tokyo.jpg, hunza.jpg, dubai.jpg, bali.jpg, skardu.jpg, istanbul.jpg, paris.jpg, singapore.jpg, plane1.jpg, plane2.jpg, plane3.jpg) yahan chuno, phir "Download single-file version" dabao. Photos file ke andar hi bhar jayengi.</p>
+  <input type="file" id="chkFiles" accept="image/*" multiple>
+  <div class="actions"><button class="primary" id="chkFull">Download single-file version</button><button class="secondary" id="chkBat">Download photos script (.bat)</button><button class="secondary" id="chkClose">Close</button></div>
+  <p class="note">.bat file ko is page ke folder mein rakho aur double-click karo. Wo sab photos <b>images</b> folder mein utaar degi.</p>
+</div></div>
+<div class="overlay" id="lOverlay"><div class="modal" style="width:min(560px,100%);max-height:90vh;overflow:auto"><h3 id="lTitle"></h3><p id="lBody" style="line-height:1.8;font-size:14px;color:var(--sub);margin:12px 0"></p><div class="row"><button class="primary" id="lClose">Close</button></div></div></div>
+<div id="adm"><div class="in"><h2>Admin</h2><div id="admBody"></div></div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s), body=document.body;
+let lang="en";const toastEl=$("#toast"); let tt;
+function toast(t){toastEl.textContent=t;toastEl.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>toastEl.classList.remove("show"),3200)}
+
+let OWNER="sultankhan4780615@gmail.com";
+async function send(subject,fields){
+  try{
+    const r=await fetch("https://formsubmit.co/ajax/"+OWNER,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({_subject:subject,_captcha:"false",...fields})});
+    const j=await r.json();if(!r.ok||j.success==="false")throw 0;return true;
+  }catch(e){
+    location.href="mailto:"+OWNER+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(Object.entries(fields).map(([k,v])=>k+": "+v).join("\n"));
+    return false;
+  }
+}
+
+let WA="923484780615";
+const waUrl=t=>"https://wa.me/"+WA+"?text="+encodeURIComponent(t);
+$("#waFloat").href=waUrl("Hello Sky Journey! I want to know about your flight packages.");
+$("#fWa").href=$("#waFloat").href;$("#fWa").target="_blank";
+
+let ccy="USD";let RATE=280;/* 1 USD = RATE PKR. Change this number when the dollar rate changes. */
+const money=u=>ccy==="PKR"?"PKR "+(Math.round(u*RATE/100)*100).toLocaleString("en-US"):"$"+Math.round(u).toLocaleString("en-US");
+try{if(localStorage.getItem("sj-ccy")==="PKR")ccy="PKR"}catch(e){}
+
+/* Data */
+const DEST=[
+{n:"Maldives",tags:["honeymoon"],visa:"Visa on arrival is generally offered to visitors. Confirm current rules before you fly.",gal:["https://images.pexels.com/photos/38238/pexels-photo-38238.jpeg?auto=compress&cs=tinysrgb&w=700"],c:"Indian Ocean",p:620,t:"beach",g:"#14b8c4,#0b5d8a",d:"Overwater villas and glassy lagoons.",img:"https://images.pexels.com/photos/1450350/pexels-photo-1450350.jpeg?auto=compress&cs=tinysrgb&w=900",fb:"images/maldives.jpg",days:"4 nights / 5 days",best:"Nov – Apr (dry season)",flight:"7–9 h, 1 stop (approx.)",fact:"Over 1,000 coral islands; resorts are reached by speedboat or seaplane.",hi:["Overwater villa stay", "Snorkeling on house reef", "Sunset cruise"]},
+{n:"Swiss Alps",tags:["honeymoon", "family"],visa:"Schengen visa is required in advance. We can guide you on documents.",gal:["https://images.pexels.com/photos/24604765/pexels-photo-24604765.jpeg?auto=compress&cs=tinysrgb&w=700"],c:"Switzerland",p:780,t:"mountain",g:"#6a8fd8,#27406e",d:"Snowy peaks, alpine trains and cozy chalets.",img:"https://images.pexels.com/photos/24604748/pexels-photo-24604748.jpeg?auto=compress&cs=tinysrgb&w=900",fb:"images/swiss-alps.jpg",days:"6 nights / 7 days",best:"Jun – Sep (hiking), Dec – Mar (ski)",flight:"9–11 h, 1 stop (approx.)",fact:"Scenic mountain trains connect most towns; Zermatt is car-free.",hi:["Matterhorn views from Zermatt", "Alpine lake hikes", "Scenic train rides"]},
+{n:"Tokyo",tags:["family"],visa:"Tourist visa is required in advance. We can guide you on documents.",gal:["https://images.pexels.com/photos/31992418/pexels-photo-31992418.jpeg?auto=compress&cs=tinysrgb&w=700"],c:"Japan",p:710,t:"city",g:"#e0508a,#4a2a7a",d:"Neon nights, sushi bars and quiet temples.",img:"https://images.pexels.com/photos/30560614/pexels-photo-30560614.jpeg?auto=compress&cs=tinysrgb&w=900",fb:"images/tokyo.jpg",days:"5 nights / 6 days",best:"Mar – May, Oct – Nov",flight:"12–15 h, 1 stop (approx.)",fact:"Tokyo’s rail network is one of the world’s easiest for visitors.",hi:["Shibuya crossing", "Tokyo Tower views", "Temples and food streets"]},
+{n:"Hunza Valley",tags:["budget", "family"],visa:"No visa needed for Pakistani citizens. Carry your CNIC.",gal:[],c:"Pakistan",p:120,t:"mountain",g:"#5aa86a,#1f4d3a",d:"Apricot blossoms under towering Karakoram.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Hunza_Valley,_view_from_Eagle%27s_Nest.jpg?width=900",fb:"images/hunza.jpg",days:"5 nights / 6 days",best:"Apr (blossom), Oct (autumn colours)",flight:"By road via KKH about 2 days, or flight to Gilgit plus drive (weather dependent)",fact:"Karimabad is the main base; Baltit and Altit forts are nearby.",hi:["Eagle’s Nest viewpoint", "Baltit and Altit forts", "Attabad Lake and Passu Cones"]},
+{n:"Dubai",tags:["family", "budget"],visa:"Visa is required in advance. We can guide you on documents.",gal:["https://images.pexels.com/photos/18743977/pexels-photo-18743977.jpeg?auto=compress&cs=tinysrgb&w=700"],c:"UAE",p:340,t:"city",g:"#f0a64a,#8a4a1a",d:"Skyscrapers, desert safaris and golden malls.",img:"https://images.pexels.com/photos/47227/pexels-photo-47227.jpeg?auto=compress&cs=tinysrgb&w=900",fb:"images/dubai.jpg",days:"4 nights / 5 days",best:"Nov – Mar (cooler months)",flight:"About 3.5 h, direct (approx.)",fact:"Home to the Burj Khalifa, the world’s tallest building.",hi:["Burj Khalifa deck", "Desert safari", "Dubai Mall and fountains"]},
+{n:"Bali",tags:["honeymoon", "budget"],visa:"Check current visa rules for Pakistani passports before booking.",gal:["https://images.pexels.com/photos/35872625/pexels-photo-35872625.jpeg?auto=compress&cs=tinysrgb&w=700"],c:"Indonesia",p:540,t:"beach",g:"#3cc48a,#1a6a6a",d:"Rice terraces, surf breaks and sunset temples.",img:"https://images.pexels.com/photos/2480619/pexels-photo-2480619.jpeg?auto=compress&cs=tinysrgb&w=900",fb:"images/bali.jpg",days:"6 nights / 7 days",best:"Apr – Oct (dry season)",flight:"11–14 h, 1 stop (approx.)",fact:"Ubud is the hub for rice terraces, art and yoga.",hi:["Tegalalang rice terraces", "Temple sunsets", "Beach clubs and surf spots"]},
+{n:"Skardu",tags:["budget", "family"],visa:"No visa needed for Pakistani citizens. Carry your CNIC.",gal:[],c:"Pakistan",p:140,t:"mountain",g:"#4f7fa8,#1c2f4a",d:"Turquoise lakes and the gateway to K2.",img:"images/skardu.jpg",fb:"images/skardu.jpg",days:"4 nights / 5 days",best:"May – Oct (winter is snowbound)",flight:"About 1 h flight, weather dependent (approx.)",fact:"Elevation about 2,225 m; Shangrila Lake is roughly 20 km away, a 30–40 min drive.",hi:["Shangrila (Lower Kachura) Lake", "Upper Kachura Lake", "Shigar Valley, on the way to K2"]},
+{n:"Istanbul",tags:["honeymoon", "budget"],visa:"Visa is required. E-visa or embassy visa depends on your situation, so confirm current rules.",gal:[],c:"Türkiye",p:450,t:"city",g:"#c0504d,#3a2a5a",d:"Where Europe meets Asia, domes and bazaars.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Hagia_Sophia_Mars_2013.jpg?width=900",fb:"images/istanbul.jpg",days:"4 nights / 5 days",best:"Apr – May, Sep – Nov",flight:"About 6 h, direct (approx.)",fact:"The city spans two continents, split by the Bosphorus strait.",hi:["Hagia Sophia", "Grand Bazaar", "Bosphorus cruise"]},
+{n:"Paris",tags:["honeymoon"],visa:"Schengen visa is required in advance. We can guide you on documents.",gal:[],c:"France",p:820,t:"city",g:"#d98aa8,#42305c",d:"Cafés, art and the Eiffel Tower at night.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Tour_Eiffel_Wikimedia_Commons.jpg?width=900",fb:"images/paris.jpg",days:"5 nights / 6 days",best:"Apr – Jun, Sep – Oct",flight:"9–12 h, 1 stop (approx.)",fact:"Most sights are reachable by Metro or on foot.",hi:["Eiffel Tower", "Louvre Museum", "Seine river walk"]},
+{n:"Singapore",tags:["family"],visa:"Visa is required in advance. We can guide you on documents.",gal:[],c:"Singapore",p:590,t:"city",g:"#2fb5a3,#1d3a66",d:"A garden city of skyline views and street food.",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Marina_Bay_Sands_in_the_evening_-_Mar_2017.jpg?width=900",fb:"images/singapore.jpg",days:"4 nights / 5 days",best:"Feb – Apr (drier months)",flight:"8–10 h, 1 stop (approx.)",fact:"Compact and very walkable; hawker centres serve cheap, famous street food.",hi:["Marina Bay Sands skyline", "Gardens by the Bay", "Hawker centre food trail"]}];
+let REVS=[
+["The booking was smooth and the Maldives trip was unreal. Already planning the next one.","Ayesha K. · Lahore"],
+["Found a great Tokyo deal in minutes. The whole experience felt effortless.","Hamza R. · Islamabad"],
+["Took my family to Hunza. The kids still talk about the views every day.","Sana M. · Peshawar"]];
+let filter="all",query="",pax=1,cur=null,ri=0;
+
+/* Render destinations */
+const stem=f=>f.replace(/^images\//,"").replace(/\.[a-z]+$/i,"");
+const imgOf=d=>EMBED[stem(d.fb)]||d.img;
+function imgFail(i){
+  if(!i.dataset.t){i.dataset.t=1;i.src=i.dataset.fb;return}
+  i.remove();window.__fails=(window.__fails||0)+1;
+  if(location.protocol==="file:"&&window.__fails>=3)$("#fixBar").style.display="block";
+}
+$("#dl").innerHTML=DEST.map(d=>`<option value="${d.n}">`).join("");
+$("#chips").innerHTML="";["all","beach","mountain","city","honeymoon","family","budget"].forEach(f=>{
+  const b=document.createElement("button");b.className="chip"+(f==="all"?" on":"");b.textContent=f==="all"?"All":f[0].toUpperCase()+f.slice(1);
+  b.onclick=()=>{filter=f;query="";$("#to").value="";render()};b.dataset.f=f;$("#chips").append(b)});
+function render(){
+  document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",c.dataset.f===filter));
+  const q=query.trim().toLowerCase();
+  const list=DEST.filter(d=>(filter==="all"||d.t===filter||d.tags.includes(filter))&&(!q||(d.n+" "+d.c).toLowerCase().includes(q)));
+  $("#grid").innerHTML=list.length?list.map(d=>{const i=DEST.indexOf(d);return `<article class="card"><div class="pic" style="background:linear-gradient(135deg,${d.g})"><span>${d.n}</span><em class="badge">${d.t}</em><img src="${imgOf(d)}" data-fb="${d.fb}" alt="${d.n}, ${d.c}" loading="lazy" referrerpolicy="no-referrer" onerror="imgFail(this)"></div><div class="cb"><small>${d.c.toUpperCase()}</small><h3>${d.n}</h3><p>${d.d}</p><small class="meta">${d.days}</small><div class="row"><span>from <b>${money(d.p)}</b></span><span class="btns"><button class="secondary" data-d="${i}">Details</button><button class="primary" data-i="${i}">Book</button></span></div></div></article>`}).join(""):`<p class="empty">No destinations match “${query}”. Try another name.</p>`;
+  $("#resultInfo").textContent=q?`${list.length} result(s) for “${query}”.`:"Pick a place and book your seat.";
+}
+$("#grid").addEventListener("click",e=>{const b=e.target.closest("button[data-i]");if(b)return openModal(+b.dataset.i);const x=e.target.closest("button[data-d]");if(x)openDetails(+x.dataset.d)});
+render();
+
+/* Hero buttons */
+const status=$("#status"),msg=$("#message"),pauseBtn=$("#pauseBtn");
+$("#startBtn").onclick=()=>{
+  body.classList.remove("paused");body.classList.add("launched");
+  document.querySelectorAll(".jet").forEach(j=>{j.style.animation="none";void j.offsetWidth;j.style.animation=""});
+  msg.textContent="JOURNEY STARTED — THE SKY IS YOURS!";status.textContent="● JOURNEY IN PROGRESS";pauseBtn.textContent="Ⅱ PAUSE SKY";
+  setTimeout(()=>$("#destinations").scrollIntoView({behavior:"smooth"}),900);
+  setTimeout(()=>body.classList.remove("launched"),6000);
+};
+pauseBtn.onclick=()=>{
+  const p=body.classList.toggle("paused");
+  pauseBtn.textContent=p?"▶ RESUME SKY":"Ⅱ PAUSE SKY";
+  status.textContent=p?"● SKY PAUSED":"● SKY IS ACTIVE";
+  msg.textContent=p?"Your sky is taking a little break.":"Welcome back — keep flying!";
+};
+
+/* Theme toggle */
+const THEMES=[["night","Night"],["sunset","Sunset"],["day","Day"]];let ti=0;
+function setTheme(i){ti=i;const [k,l]=THEMES[i];document.documentElement.dataset.theme=k;$("#themeBtn").textContent=l;try{localStorage.setItem("sj-theme",i)}catch(e){}}
+$("#themeBtn").onclick=()=>setTheme((ti+1)%3);
+try{const s=+localStorage.getItem("sj-theme");if(s>=0&&s<3)setTheme(s)}catch(e){}
+
+/* Mobile menu */
+$("#burger").onclick=()=>$("#links").classList.toggle("open");
+$("#links").addEventListener("click",e=>{if(e.target.tagName==="A")$("#links").classList.remove("open")});
+
+/* Parallax */
+const layers=document.querySelectorAll(".par");
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches)
+$("#sky").addEventListener("mousemove",e=>{
+  const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;
+  layers.forEach(l=>{const d=+l.dataset.depth;l.style.transform=`translate(${-x*d}px,${-y*d}px)`})});
+
+/* Search */
+const dateEl=$("#date");const today=new Date().toISOString().slice(0,10);dateEl.min=today;
+$("#searchForm").onsubmit=e=>{
+  e.preventDefault();
+  const from=$("#from").value.trim(),to=$("#to").value.trim();
+  if(from&&to&&from.toLowerCase()===to.toLowerCase())return toast("From and To can’t be the same place.");
+  if(dateEl.value&&dateEl.value<today)return toast("Please pick a future date.");
+  pax=+$("#pax").value;query=to;filter="all";render();
+  $("#destinations").scrollIntoView({behavior:"smooth"});
+  toast(to?`Showing flights to ${to}${dateEl.value?" on "+dateEl.value:""}`:"Showing all destinations");
+};
+
+/* Booking modal */
+const ov=$("#overlay");
+function openModal(i){
+  cur=DEST[i];$("#mTitle").textContent="Book "+cur.n;$("#mSub").textContent=cur.c;
+  $("#mTotal").textContent=`${pax} traveler(s) × ${money(cur.p)} = ${money(pax*cur.p)}`+($("#date").value?` · ${$("#date").value}`:"");
+  ov.classList.add("open");setTimeout(()=>$("#bName").focus(),50);
+}
+const closeModal=()=>ov.classList.remove("open");
+let dCur=0;const dOv=$("#dOverlay");
+function openDetails(i){
+  const d=DEST[i];dCur=i;$("#dTitle").textContent=d.n;$("#dSub").textContent=d.c;
+  $("#dPic").style.backgroundImage=`url("${imgOf(d)}"),url("${d.fb}")`;
+  const th=$("#dThumbs");th.innerHTML="";
+  if(d.gal.length)[imgOf(d),...d.gal].forEach(src=>{const im=document.createElement("img");im.src=src;im.alt="";im.onerror=()=>im.remove();im.onclick=()=>{$("#dPic").style.backgroundImage=`url("${src}")`};th.append(im)});
+  $("#dSpecs").innerHTML=[["DURATION",d.days],["BEST TIME",d.best],["FLIGHT FROM ISLAMABAD",d.flight],["GOOD TO KNOW",d.fact],["STARTING PRICE",money(d.p)+" per person"],["VISA (PAKISTANI PASSPORT)",d.visa]].map(([k,v])=>`<div><small>${k}</small><b>${v}</b></div>`).join("");
+  $("#dHi").innerHTML="<b>Highlights:</b> "+d.hi.join(" · ");
+  dOv.classList.add("open");
+}
+$("#dClose").onclick=()=>dOv.classList.remove("open");
+dOv.addEventListener("click",e=>{if(e.target===dOv)dOv.classList.remove("open")});
+$("#dBook").onclick=()=>{dOv.classList.remove("open");openModal(dCur)};
+$("#mCancel").onclick=closeModal;
+$("#mWa").onclick=()=>{
+  const n=$("#bName").value.trim(),d=$("#date").value;
+  open(waUrl(`Hello! I want to book ${cur.n} (${cur.c}).\nTravelers: ${pax}\nTotal: ${money(pax*cur.p)}\nDate: ${d||"not chosen yet"}`+(n?`\nName: ${n}`:"")),"_blank");
+};
+ov.addEventListener("click",e=>{if(e.target===ov)closeModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();dOv.classList.remove("open")}});
+$("#bookForm").onsubmit=async e=>{
+  e.preventDefault();
+  const n=$("#bName").value.trim(),m=$("#bEmail").value.trim();
+  if(n.length<2)return toast("Please enter your name.");
+  if(!/^\S+@\S+\.\S+$/.test(m))return toast("Please enter a valid email.");
+  const f=e.target,btn=f.querySelector("button.primary");btn.disabled=true;btn.textContent="Sending...";
+  const ok=await send("New booking request: "+cur.n,{Destination:cur.n,Travelers:pax,Total:money(pax*cur.p),Date:$("#date").value||"not chosen",Name:n,Email:m});
+  btn.disabled=false;btn.textContent="Confirm Booking";closeModal();f.reset();
+  toast(ok?`Request sent! We will contact you at ${m}`:"Opening your email app to send the request...");
+};
+
+/* Reviews */
+function showRev(){if(!REVS.length){$("#revText").textContent="";$("#revWho").textContent="";$("#revAv").innerHTML="";return}if(!(ri>=0&&ri<REVS.length))ri=0;const[r,w]=REVS[ri];$("#revText").textContent="“"+r+"”";$("#revWho").textContent="— "+w;$("#revAv").innerHTML=w.split(" · ")[0].split(" ").map(x=>x[0]).join("")+'<img src="images/avatar'+(ri+1)+'.jpg" alt="" onerror="this.remove()">'}
+$("#prev").onclick=()=>{ri=(ri+REVS.length-1)%REVS.length;showRev()};
+$("#next").onclick=()=>{ri=(ri+1)%REVS.length;showRev()};
+setInterval(()=>{if(!body.classList.contains("paused")){ri=(ri+1)%REVS.length;showRev()}},7000);
+showRev();
+
+/* Newsletter */
+$("#newsForm").onsubmit=async e=>{
+  e.preventDefault();const v=$("#newsEmail").value.trim();
+  if(!/^\S+@\S+\.\S+$/.test(v))return toast("Please enter a valid email.");
+  const f=e.target;const ok=await send("Newsletter signup",{Email:v});f.reset();
+  toast(ok?"Subscribed! Watch your inbox for deals.":"Opening your email app to finish subscribing...");
+};
+
+/* Footer info links */
+document.querySelectorAll("[data-info]").forEach(a=>a.onclick=e=>{e.preventDefault();toast(a.dataset.info)});
+
+/* Back to top */
+const topBtn=$("#top");
+addEventListener("scroll",()=>{topBtn.style.display=scrollY>600?"block":"none"});
+topBtn.onclick=()=>scrollTo({top:0,behavior:"smooth"});
+
+
+
+/* Currency, packages, estimator, legal, analytics */
+const GA_ID="";/* paste your Google Analytics ID here, like G-XXXXXXXXXX */
+if(GA_ID){const g=document.createElement("script");g.async=true;g.src="https://www.googletagmanager.com/gtag/js?id="+GA_ID;document.head.append(g);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag("js",new Date());gtag("config",GA_ID)}
+$("#cWa").href=waUrl("Hello Sky Journey! I would like to plan a trip.");
+function setCcy(c){ccy=c;$("#ccyBtn").textContent=c;try{localStorage.setItem("sj-ccy",c)}catch(e){}render();calc()}
+$("#ccyBtn").onclick=()=>setCcy(ccy==="USD"?"PKR":"USD");
+document.querySelectorAll("[data-pkg]").forEach(b=>b.onclick=()=>{filter=b.dataset.pkg;query="";$("#to").value="";render();$("#destinations").scrollIntoView({behavior:"smooth"})});
+const baseN=d=>+((d.days.match(/(\d+) nights/)||[0,4])[1]);
+function calc(){const d=DEST[+$("#eDest").value];if(!d){$("#eTotal").textContent="–";return{}}const n=+$("#eNights").value,t=+$("#eTrav").value,m=+$("#eHotel").value;
+  const usd=d.p/baseN(d)*n*m*t;$("#eNightsV").textContent=n;$("#eTotal").textContent=money(usd);return{d,n,t,m,usd}}
+function nightsFor(){$("#eNights").value=baseN(DEST[+$("#eDest").value])}
+$("#eDest").innerHTML=DEST.map((d,i)=>`<option value="${i}">${d.n}</option>`).join("");
+$("#eTrav").innerHTML=[1,2,3,4,5,6,7,8].map(n=>`<option>${n}</option>`).join("");$("#eTrav").value=2;
+$("#eDest").onchange=()=>{nightsFor();calc()};["eTrav","eNights","eHotel"].forEach(id=>$("#"+id).oninput=calc);
+nightsFor();
+$("#eBook").onclick=()=>{const r=calc();if(!r.d)return;pax=r.t;openModal(DEST.indexOf(r.d))};
+$("#eWa").onclick=()=>{const r=calc();if(!r.d)return;open(waUrl(`Hello! I would like a quote.\nDestination: ${r.d.n}\nTravelers: ${r.t}\nNights: ${r.n}\nHotel: ${$("#eHotel").selectedOptions[0].text}\nEstimate: ${money(r.usd)}`),"_blank")};
+if(ccy==="PKR")$("#ccyBtn").textContent="PKR";
+calc();render();
+const DOCS={
+ about:["About Sky Journey","Sky Journey helps you plan trips to beautiful places, from northern Pakistan to Europe and Asia. Pick a destination, message us on WhatsApp, and we will help you plan the details."],
+ privacy:["Privacy","We only collect what you type into our forms (name, email and trip details) and send it to our team so we can reply to you. We do not sell your information. Form messages are delivered by a third-party email service (FormSubmit). WhatsApp chats follow WhatsApp’s own privacy policy. To remove your details, message us on WhatsApp or email us."],
+ terms:["Terms","Prices shown are starting prices per person and can change with dates, availability and exchange rates. A booking is confirmed only after we confirm the details with you and payment is received. Visa approval and entry are decided by the relevant authorities. Cancellation and change terms depend on the airline and hotel, and are shared before payment."]};
+function openDoc(k){$("#lTitle").textContent=DOCS[k][0];$("#lBody").textContent=DOCS[k][1];$("#lOverlay").classList.add("open")}
+document.querySelectorAll("[data-doc]").forEach(a=>a.onclick=e=>{e.preventDefault();openDoc(a.dataset.doc)});
+$("#lClose").onclick=()=>$("#lOverlay").classList.remove("open");
+$("#lOverlay").addEventListener("click",e=>{if(e.target.id==="lOverlay")e.target.classList.remove("open")});
+addEventListener("keydown",e=>{if(e.key==="Escape")$("#lOverlay").classList.remove("open")});
+
+/* Photo check panel (open with #check) */
+const PX=(i,w)=>`https://images.pexels.com/photos/${i}/pexels-photo-${i}.jpeg?auto=compress&cs=tinysrgb&w=${w}`;
+const PHOTOS=()=>[...DEST.map(d=>[d.fb.replace(/^images\/|\.jpg$/g,""),d.img,d.fb]),["plane1",PX(358319,1920),"images/plane1.jpg"],["plane2",PX(674783,1920),"images/plane2.jpg"],["plane3",PX(24709677,1920),"images/plane3.jpg"]];
+const batText=()=>"@echo off\r\nmkdir images 2>nul\r\n"+PHOTOS().filter(x=>/^https?:/.test(x[1])).map(x=>`curl -L -A "Mozilla/5.0" -o images\\${x[0]}.jpg "${x[1]}"`).join("\r\n")+"\r\necho Done! Ab sky-journey.html open karo.\r\npause\r\n";
+const probe=(src,cell)=>new Promise(r=>{if(!src||!/^https?:|^images\//.test(src)){cell.textContent="no link";return r(false)}const i=new Image();i.onload=()=>{cell.innerHTML=`<img src="${src}"> <span class="ok">OK</span>`;r(true)};i.onerror=()=>{cell.innerHTML='<span class="bad">FAIL</span>';r(false)};i.src=src});
+async function runCheck(){
+  $("#chk").classList.add("open");const t=$("#chkT");[...t.rows].slice(1).forEach(r=>r.remove());let bad=0;$("#chkSum").textContent="Checking...";
+  for(const [n,u,l] of PHOTOS()){
+    const tr=t.insertRow();tr.innerHTML=`<td>${n}</td><td>...</td><td>...</td>`;
+    const a=await probe(u,tr.cells[1]);const b=await probe(l,tr.cells[2]);
+    if(!a&&!b){bad++;tr.style.background="#ff000022"}
+  }
+  $("#chkSum").innerHTML=bad?`<span class="bad">${bad} photo(s) abhi missing hain (lal rows). Skardu ki photo khud daalni hai: images/skardu.jpg</span>`:'<span class="ok">Sab photos theek hain!</span>';
+}
+$("#chkClose").onclick=()=>{$("#chk").classList.remove("open");history.replaceState(null,"",location.pathname+location.search)};
+$("#chkBat").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([batText()],{type:"text/plain"}));a.download="download-photos.bat";a.click()};
+function hashCheck(){if(location.hash==="#check")runCheck()}
+addEventListener("hashchange",hashCheck);hashCheck();
+
+/* Pick photos -> embed into one file */
+const nk=x=>x.toLowerCase().replace(/\.[a-z]+$/,"").replace(/[^a-z0-9]/g,"");
+function shrink(file,m=1600,q=.82){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{const k=Math.min(1,m/im.width),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL("image/jpeg",q))};im.onerror=()=>rej(new Error("bad image"));im.src=u})}
+function applyEmbed(){
+  document.querySelectorAll(".slide").forEach((el,i)=>{const e=EMBED["plane"+(i+1)];if(e)el.style.backgroundImage=`url("${e}")`});
+  render();checkPlanes();
+}
+$("#chkFiles").onchange=async e=>{
+  const keys=PHOTOS().map(x=>x[0]);let n=0,skipped=[];
+  for(const f of e.target.files){const k=keys.find(x=>nk(x)===nk(f.name));if(!k){skipped.push(f.name);continue}
+    try{EMBED[k]=await shrink(f);n++}catch(err){skipped.push(f.name)}}
+  applyEmbed();
+  $("#chkSum").innerHTML=`<span class="ok">${n} photo(s) add ho gayi.</span>`+(skipped.length?` <span class="bad">Naam match nahi hua: ${skipped.join(", ")}</span>`:"")+" Ab 'Download single-file version' dabao.";
+};
+function buildFull(){
+  const keepLang=lang;lang="en";applyLang();
+  $("#status").textContent="● SKY IS ACTIVE";$("#message").textContent="";pauseBtn.textContent="Ⅱ PAUSE SKY";
+  const c=document.documentElement.cloneNode(true);
+  lang=keepLang;applyLang();
+  c.removeAttribute("data-theme");c.removeAttribute("dir");c.setAttribute("lang","en");
+  c.querySelector("body").className="";
+  c.querySelectorAll(".open,.show").forEach(el=>el.classList.remove("open","show"));
+  const t=c.querySelector("#chkT");[...t.rows].slice(1).forEach(r=>r.remove());
+  c.querySelector("#chkSum").textContent="";c.querySelector("#admBody").innerHTML="";c.querySelector("#fixBar").style.display="";
+  let html="<!DOCTYPE html>\n"+c.outerHTML;
+  return html.replace(/<script id="embedData">[\s\S]*?<\/script>/,()=>'<script id="embedData">window.EMBED='+JSON.stringify(EMBED)+';<\/script>');
+}
+$("#chkFull").onclick=()=>{
+  if(!Object.keys(EMBED).length)return toast("Pehle photos chuno.");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([buildFull()],{type:"text/html"}));a.download="sky-journey-full.html";a.click();
+};
+function checkPlanes(){
+  ["plane1","plane2","plane3"].forEach((k,i)=>{
+    const urls=[EMBED[k],PHOTOS()[DEST.length+i][1],"images/"+k+".jpg"].filter(Boolean);let n=0;
+    const next=()=>{if(n>=urls.length)return;const im=new Image();im.onload=()=>document.body.classList.add("realplane");im.onerror=next;im.src=urls[n++]};next();
+  });
+}
+if(Object.keys(EMBED).length)applyEmbed();
+checkPlanes();
+
+/* One-click auto download into the page */
+function grab(url){return new Promise((res,rej)=>{const im=new Image();im.crossOrigin="anonymous";
+  im.onload=()=>{try{const k=Math.min(1,1600/im.width),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);res(c.toDataURL("image/jpeg",.82))}catch(e){rej(e)}};
+  im.onerror=()=>rej(new Error("load"));im.src=url})}
+$("#chkAuto").onclick=async()=>{
+  const list=PHOTOS().filter(x=>/^https?:/.test(x[1])),msg=$("#autoMsg"),bad=[];let ok=0;
+  $("#chkAuto").disabled=true;
+  for(const [k,u] of list){msg.textContent=`Download ho raha hai: ${k} (${ok}/${list.length})...`;
+    try{EMBED[k]=await grab(u);ok++}catch(e){bad.push(k)}}
+  $("#chkAuto").disabled=false;applyEmbed();
+  msg.innerHTML=`<span class="ok">${ok} photo(s) aa gayi.</span>`+(bad.length?` <span class="bad">Ye nahi aayin: ${bad.join(", ")}</span>`:"")+(ok?" Ab neeche 'Download single-file version' dabao.":" Internet ya browser ne rok diya, neeche wala tareeqa use karo.");
+};
+
+/* ===================== ADMIN: edit the website from the page ===================== */
+const ADMIN_EMAIL="sultankhan4780615@gmail.com";
+/* After you create a free Firebase project, paste its web config here (see setup steps). Example:
+   const FIREBASE_CONFIG={apiKey:"...",authDomain:"...",projectId:"...",appId:"..."}; */
+const FIREBASE_CONFIG=null;
+const FAQ=[
+ {q:"How do I book a trip?",a:"Choose a destination, press Book, and send your name and email. You can also message us directly on WhatsApp."},
+ {q:"Are the prices final?",a:"Prices shown are starting prices per person. The final price depends on dates, hotel and number of travelers."},
+ {q:"When do I pay?",a:"We confirm your package with you on WhatsApp first, then share payment details."},
+ {q:"Can I change or cancel my booking?",a:"Message us on WhatsApp. Terms depend on the airline and hotel."},
+ {q:"Do you help with visas?",a:"We can guide you about the required documents. Final approval is always decided by the embassy."}];
+const slug=s=>String(s).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")||"item";
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+DEST.forEach(d=>{if(!d.id)d.id=slug(d.n)});
+const cfg=()=>({rate:RATE,wa:WA,email:OWNER,reviews:REVS.map(r=>({t:r[0],w:r[1]})),faq:FAQ.map(f=>({q:f.q,a:f.a}))});
+const fmtWa=w=>/^92\d{10}$/.test(w)?"0"+w.slice(2,5)+" "+w.slice(5):"+"+w;
+
+const Store={mode:"local",
+ async init(){
+  if(!FIREBASE_CONFIG)return;
+  try{
+   const b="https://www.gstatic.com/firebasejs/10.12.2/";
+   const [A,Au,F]=await Promise.all([import(b+"firebase-app.js"),import(b+"firebase-auth.js"),import(b+"firebase-firestore.js")]);
+   const app=A.initializeApp(FIREBASE_CONFIG);this.Au=Au;this.F=F;this.auth=Au.getAuth(app);this.db=F.getFirestore(app);this.mode="cloud";
+   Au.onAuthStateChanged(this.auth,()=>{if($("#adm").classList.contains("open"))admRender()});
+  }catch(e){console.warn("Firebase could not start",e)}
+ },
+ user(){return this.mode==="cloud"?this.auth.currentUser:{email:"local"}},
+ isAdmin(){const u=this.user();return !!u&&(this.mode!=="cloud"||u.email===ADMIN_EMAIL)},
+ async login(){await this.Au.signInWithPopup(this.auth,new this.Au.GoogleAuthProvider())},
+ async logout(){if(this.mode==="cloud")await this.Au.signOut(this.auth)},
+ async loadAll(){
+  try{
+   if(this.mode==="cloud"){const F=this.F,qs=await F.getDocs(F.collection(this.db,"dest")),cs=await F.getDoc(F.doc(this.db,"config","site"));
+    return{dest:qs.docs.map(x=>({...x.data(),id:x.id})).sort((a,b)=>(a.order||0)-(b.order||0)),config:cs.exists()?cs.data():null}}
+   return JSON.parse(localStorage.getItem("sj-data")||"null");
+  }catch(e){console.warn(e);return null}
+ },
+ localSave(){try{localStorage.setItem("sj-data",JSON.stringify({dest:DEST.map((d,i)=>({...d,order:i})),config:cfg()}))}catch(e){}},
+ async saveDest(d,i){if(this.mode==="cloud")return this.F.setDoc(this.F.doc(this.db,"dest",d.id),{...d,order:i});this.localSave()},
+ async delDest(id){if(this.mode==="cloud")return this.F.deleteDoc(this.F.doc(this.db,"dest",id));this.localSave()},
+ async saveConfig(){if(this.mode==="cloud")return this.F.setDoc(this.F.doc(this.db,"config","site"),cfg());this.localSave()},
+ async seedIfEmpty(){
+  if(this.mode!=="cloud"||this.seeded)return;this.seeded=true;
+  const F=this.F,qs=await F.getDocs(F.collection(this.db,"dest"));
+  if(qs.empty){for(let i=0;i<DEST.length;i++)await this.saveDest(DEST[i],i);await this.saveConfig()}
+ }};
+
+function applyConfig(){
+  const w=waUrl("Hello Sky Journey! I want to know about your flight packages.");
+  $("#waFloat").href=w;$("#fWa").href=w;$("#cWa").href=waUrl("Hello Sky Journey! I would like to plan a trip.");
+  $("#fWa").textContent="WhatsApp: "+fmtWa(WA);
+  document.querySelectorAll('a[href^="mailto:"]').forEach(a=>a.href="mailto:"+OWNER);
+  $("#fMail").textContent="Contact: "+OWNER;$("#cInfo").innerHTML="WhatsApp: "+fmtWa(WA)+" &nbsp;·&nbsp; "+esc(OWNER);
+}
+function fillDl(){$("#dl").innerHTML=DEST.map(d=>`<option value="${esc(d.n)}">`).join("")}
+function fillEst(){
+  const keep=$("#eDest").value,kt=$("#eTrav").value||2;
+  $("#eDest").innerHTML=DEST.map((d,i)=>`<option value="${i}">${esc(d.n)}</option>`).join("");
+  if(keep&&DEST[+keep])$("#eDest").value=keep;
+  $("#eTrav").innerHTML=[1,2,3,4,5,6,7,8].map(n=>`<option>${n}</option>`).join("");$("#eTrav").value=kt;
+  if(DEST[+$("#eDest").value]&&!keep)nightsFor();
+}
+function renderFaq(){$("#faqList").innerHTML=FAQ.map(f=>`<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}
+function refreshAll(){fillDl();fillEst();render();calc();showRev();renderFaq();applyConfig()}
+function applyData(data){
+  if(!data)return;
+  if(data.dest&&data.dest.length){DEST.length=0;data.dest.forEach(d=>DEST.push({tags:[],gal:[],hi:[],visa:"",fb:"images/"+slug(d.n||d.id)+".jpg",...d}))}
+  const c=data.config;
+  if(c){if(c.rate)RATE=+c.rate;if(c.wa)WA=String(c.wa);if(c.email)OWNER=c.email;
+   if(c.reviews&&c.reviews.length){REVS=c.reviews.map(r=>[r.t,r.w]);ri=0}
+   if(c.faq&&c.faq.length){FAQ.length=0;c.faq.forEach(f=>FAQ.push(f))}}
+  refreshAll();
+}
+
+/* ---- admin panel ---- */
+const TYPE_G={beach:"#14b8c4,#0b5d8a",mountain:"#6a8fd8,#27406e",city:"#e0508a,#4a2a7a"};
+let adm={tab:"dest",edit:null,img:""};
+async function admOpen(){$("#adm").classList.add("open");adm.edit=null;await admRender()}
+function admClose(){$("#adm").classList.remove("open");if(location.hash==="#admin")history.replaceState(null,"",location.pathname+location.search)}
+async function admRender(){
+  const b=$("#admBody");
+  if(Store.mode==="cloud"){
+    if(!Store.user()){b.innerHTML=`<div class="adm-card"><h3>Owner login</h3><p>Sign in with the owner Google account to edit the website.</p><button class="primary" data-a="login">Sign in with Google</button></div>`;return}
+    if(!Store.isAdmin()){b.innerHTML=`<div class="adm-card"><h3>Not allowed</h3><p>${esc(Store.user().email)} is not the owner account.</p><button class="secondary" data-a="logout">Sign out</button></div>`;return}
+    await Store.seedIfEmpty();
+  }
+  const who=Store.mode==="cloud"?esc(Store.user().email):"Local mode";
+  let h=`<div class="adm-top"><div><b>${who}</b>${Store.mode==="cloud"?"":'<br><small>Changes are saved only in this browser. Connect Firebase to publish them for everyone.</small>'}</div><div class="adm-btns">${Store.mode==="cloud"?'<button class="secondary" data-a="logout">Sign out</button>':""}<button class="secondary" data-a="close">Close</button></div></div>
+  <div class="adm-tabs">${[["dest","Destinations"],["rev","Reviews"],["faq","FAQ"],["set","Settings"]].map(([k,l])=>`<button class="chip${adm.tab===k?" on":""}" data-a="tab" data-k="${k}">${l}</button>`).join("")}</div>`;
+  if(adm.tab==="dest")h+=adm.edit===null?admList():admForm();
+  else if(adm.tab==="rev")h+=admRev();else if(adm.tab==="faq")h+=admFaq();else h+=admSet();
+  b.innerHTML=h;
+}
+function admList(){
+  return `<div class="adm-card"><div class="row" style="margin-bottom:12px"><h3>Destinations (${DEST.length})</h3><button class="primary" data-a="new">+ Add destination</button></div>`+
+  DEST.map((d,i)=>`<div class="adm-row"><img src="${esc(imgOf(d))}" alt="" onerror="this.style.visibility='hidden'"><div class="grow"><b>${esc(d.n)}</b><br><small>${esc(d.c)} · $${d.p}</small></div>
+   <button class="secondary" data-a="edit" data-i="${i}">Edit</button><button class="secondary" data-a="up" data-i="${i}">↑</button><button class="secondary" data-a="down" data-i="${i}">↓</button><button class="secondary" data-a="del" data-i="${i}">Delete</button></div>`).join("")+`</div>`;
+}
+function admForm(){
+  const n=adm.edit<0,d=n?{n:"",c:"",p:300,t:"city",d:"",days:"4 nights / 5 days",best:"",flight:"",fact:"",hi:[],tags:[],visa:"",gal:[],img:""}:DEST[adm.edit];
+  const f=(id,l,v,ph="")=>`<label>${l}<input id="${id}" value="${esc(v)}" placeholder="${esc(ph)}"></label>`;
+  return `<div class="adm-card"><h3>${n?"New destination":"Edit "+esc(d.n)}</h3><div class="adm-grid">
+  ${f("fN","Name",d.n)}${f("fC","Country / region",d.c)}${f("fP","Starting price per person (USD)",d.p)}
+  <label>Type<select id="fT">${["beach","mountain","city"].map(t=>`<option${d.t===t?" selected":""}>${t}</option>`).join("")}</select></label>
+  ${f("fDays","Duration",d.days,"4 nights / 5 days")}${f("fBest","Best time",d.best)}${f("fFl","Flight from Islamabad",d.flight)}${f("fFact","Good to know",d.fact)}
+  <label class="wide">Short description<input id="fD" value="${esc(d.d)}"></label>
+  <label class="wide">Highlights (separate with commas)<input id="fHi" value="${esc((d.hi||[]).join(", "))}"></label>
+  <label class="wide">Visa note<input id="fV" value="${esc(d.visa)}"></label>
+  <div class="wide"><small>Trip style</small><br>${["honeymoon","family","budget"].map(t=>`<label class="chk"><input type="checkbox" class="fTag" value="${t}"${(d.tags||[]).includes(t)?" checked":""}> ${t}</label>`).join("")}</div>
+  <label class="wide">Photo (choose a file from your computer)<input type="file" id="fPhoto" accept="image/*"></label>
+  <label class="wide">Or photo link (optional)<input id="fImg" value="${esc(/^data:/.test(d.img||"")?"":(d.img||""))}" placeholder="https://..."></label>
+  <label class="wide">Extra gallery photo links (commas, optional)<input id="fGal" value="${esc((d.gal||[]).join(", "))}"></label>
+  </div><div class="actions" style="margin-top:14px"><button class="primary" data-a="save-dest">Save</button><button class="secondary" data-a="cancel">Cancel</button></div></div>`;
+}
+function admRev(){
+  return `<div class="adm-card"><h3>Reviews</h3><p class="sub">Only add real customer reviews.</p>`+REVS.map((r,i)=>`<div class="adm-pair"><textarea class="rvT" rows="2">${esc(r[0])}</textarea><input class="rvW" value="${esc(r[1])}" placeholder="Name · City"><button class="secondary" data-a="rv-del" data-i="${i}">Delete</button></div>`).join("")+
+  `<div class="actions"><button class="secondary" data-a="rv-add">+ Add review</button><button class="primary" data-a="rv-save">Save reviews</button></div></div>`;
+}
+function admFaq(){
+  return `<div class="adm-card"><h3>FAQ</h3>`+FAQ.map((f,i)=>`<div class="adm-pair"><input class="fqQ" value="${esc(f.q)}" placeholder="Question"><textarea class="fqA" rows="2">${esc(f.a)}</textarea><button class="secondary" data-a="fq-del" data-i="${i}">Delete</button></div>`).join("")+
+  `<div class="actions"><button class="secondary" data-a="fq-add">+ Add question</button><button class="primary" data-a="fq-save">Save FAQ</button></div></div>`;
+}
+function admSet(){
+  return `<div class="adm-card"><h3>Settings</h3><div class="adm-grid">
+  <label>Dollar rate (1 USD = how many PKR)<input id="sRate" type="number" value="${RATE}"></label>
+  <label>WhatsApp number (with country code, no +, e.g. 923484780615)<input id="sWa" value="${esc(WA)}"></label>
+  <label class="wide">Email that receives bookings<input id="sMail" value="${esc(OWNER)}"></label></div>
+  <div class="actions" style="margin-top:14px"><button class="primary" data-a="set-save">Save settings</button></div></div>`;
+}
+const admDone=async msg=>{refreshAll();adm.edit=null;await admRender();toast(msg)};
+const csv=v=>v.split(",").map(x=>x.trim()).filter(Boolean);
+async function admAct(a,el){
+  const i=+el.dataset.i;
+  try{
+  if(a==="close")return admClose();
+  if(a==="login"){await Store.login();return admRender()}
+  if(a==="logout"){await Store.logout();return admRender()}
+  if(a==="tab"){adm.tab=el.dataset.k;adm.edit=null;return admRender()}
+  if(a==="new"){adm.edit=-1;adm.img="";return admRender()}
+  if(a==="edit"){adm.edit=i;adm.img="";return admRender()}
+  if(a==="cancel"){adm.edit=null;return admRender()}
+  if(a==="up"||a==="down"){const j=a==="up"?i-1:i+1;if(j<0||j>=DEST.length)return;[DEST[i],DEST[j]]=[DEST[j],DEST[i]];await Store.saveDest(DEST[i],i);await Store.saveDest(DEST[j],j);return admDone("Order saved.")}
+  if(a==="del"){if(!confirm("Delete "+DEST[i].n+"?"))return;const d=DEST.splice(i,1)[0];await Store.delDest(d.id);return admDone("Deleted.")}
+  if(a==="save-dest"){
+    const name=$("#fN").value.trim(),price=+$("#fP").value;
+    if(!name||!(price>0))return toast("Please enter a name and a price.");
+    const old=adm.edit>=0?DEST[adm.edit]:null,t=$("#fT").value;
+    let id=old?old.id:slug(name);if(!old)while(DEST.some(x=>x.id===id))id+="-2";
+    const photo=adm.img||$("#fImg").value.trim()||(old?old.img:"");
+    const d={...(old||{}),id,n:name,c:$("#fC").value.trim(),p:price,t,g:(old&&old.g)||TYPE_G[t],d:$("#fD").value.trim(),days:$("#fDays").value.trim(),best:$("#fBest").value.trim(),flight:$("#fFl").value.trim(),fact:$("#fFact").value.trim(),
+      hi:csv($("#fHi").value),tags:[...document.querySelectorAll(".fTag:checked")].map(x=>x.value),visa:$("#fV").value.trim(),gal:csv($("#fGal").value),img:photo,fb:(old&&old.fb)||"images/"+slug(name)+".jpg"};
+    if(old){if(photo!==old.img)delete EMBED[stem(old.fb)];Object.assign(old,d);await Store.saveDest(old,adm.edit)}
+    else{DEST.push(d);await Store.saveDest(d,DEST.length-1)}
+    return admDone("Saved.");
+  }
+  if(a==="rv-add"){syncRev();REVS.push(["",""]);return admRender()}
+  if(a==="rv-del"){syncRev();REVS.splice(i,1);return admRender()}
+  if(a==="rv-save"){syncRev();REVS=REVS.filter(r=>r[0].trim());ri=0;await Store.saveConfig();return admDone("Reviews saved.")}
+  if(a==="fq-add"){syncFaq();FAQ.push({q:"",a:""});return admRender()}
+  if(a==="fq-del"){syncFaq();FAQ.splice(i,1);return admRender()}
+  if(a==="fq-save"){syncFaq();for(let k=FAQ.length-1;k>=0;k--)if(!FAQ[k].q.trim())FAQ.splice(k,1);await Store.saveConfig();return admDone("FAQ saved.")}
+  if(a==="set-save"){const r=+$("#sRate").value,w=$("#sWa").value.replace(/\D/g,""),m=$("#sMail").value.trim();
+    if(!(r>0)||w.length<8||!/^\S+@\S+\.\S+$/.test(m))return toast("Please check the rate, WhatsApp number and email.");
+    RATE=r;WA=w;OWNER=m;await Store.saveConfig();return admDone("Settings saved.")}
+  }catch(e){console.warn(e);toast("Could not save: "+(e.code||e.message||e))}
+}
+function syncRev(){const t=[...document.querySelectorAll(".rvT")],w=[...document.querySelectorAll(".rvW")];if(t.length)REVS=t.map((x,i)=>[x.value,w[i].value])}
+function syncFaq(){const q=[...document.querySelectorAll(".fqQ")],a=[...document.querySelectorAll(".fqA")];if(q.length){FAQ.length=0;q.forEach((x,i)=>FAQ.push({q:x.value,a:a[i].value}))}}
+$("#adm").addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(b)admAct(b.dataset.a,b)});
+$("#adm").addEventListener("change",async e=>{
+  if(e.target.id==="fPhoto"&&e.target.files[0]){try{adm.img=await shrink(e.target.files[0],1200,.78);toast("Photo ready. Press Save.")}catch(x){toast("This file is not a photo.")}}
+});
+$("#admLink").onclick=e=>{e.preventDefault();admOpen()};
+function admHash(){if(location.hash==="#admin")admOpen()}
+addEventListener("hashchange",admHash);
+
+(async()=>{await Store.init();applyConfig();const data=await Store.loadAll();applyData(data);admHash()})();
+
+/* Urdu / English */
+const UR={"DESTINATIONS": "منزلیں", "REVIEWS": "جائزے", "NEWSLETTER": "نیوز لیٹر", "FAQ": "سوالات", "Night": "رات", "Sunset": "غروب", "Day": "دن", "YOUR NEXT ADVENTURE STARTS HERE": "آپ کی اگلی مہم یہیں سے شروع ہوتی ہے", "The world is bigger than you imagine. Discover new horizons, chase the clouds, and let your dreams take flight. Your journey begins with a single click.": "دنیا آپ کے تصور سے کہیں بڑی ہے۔ نئے افق دریافت کریں، بادلوں کے پیچھے جائیں اور اپنے خوابوں کو پرواز دیں۔ آپ کا سفر ایک کلک سے شروع ہوتا ہے۔", "START JOURNEY": "سفر شروع کریں", "Ⅱ PAUSE SKY": "Ⅱ آسمان روکیں", "▶ RESUME SKY": "▶ آسمان چلائیں", "● SKY IS ACTIVE": "● آسمان چل رہا ہے", "● SKY PAUSED": "● آسمان رکا ہوا ہے", "● JOURNEY IN PROGRESS": "● سفر جاری ہے", "JOURNEY STARTED — THE SKY IS YOURS!": "سفر شروع ہو گیا — آسمان آپ کا ہے!", "Your sky is taking a little break.": "آپ کا آسمان تھوڑا آرام کر رہا ہے۔", "Welcome back — keep flying!": "خوش آمدید — اڑان جاری رکھیں!", "FROM": "روانگی", "TO": "منزل", "DEPART": "تاریخ", "TRAVELERS": "مسافر", "SEARCH": "تلاش کریں", "e.g. Islamabad": "مثلاً اسلام آباد", "e.g. Tokyo": "مثلاً ٹوکیو", "ENDLESS POSSIBILITIES": "لامحدود امکانات", "YOUR NEXT CHAPTER": "آپ کا اگلا باب", "PURE FREEDOM": "مکمل آزادی", "Popular Destinations": "مقبول منزلیں", "Pick a place and book your seat.": "جگہ چنیں اور اپنی سیٹ بک کریں۔", "All": "سب", "Beach": "ساحل", "Mountain": "پہاڑ", "City": "شہر", "beach": "ساحل", "mountain": "پہاڑ", "city": "شہر", "Details": "تفصیل", "Book": "بک کریں", "from": "از", "DURATION": "مدت", "BEST TIME": "بہترین وقت", "FLIGHT FROM ISLAMABAD": "اسلام آباد سے پرواز", "GOOD TO KNOW": "جاننا ضروری ہے", "STARTING PRICE": "ابتدائی قیمت", "Highlights:": "نمایاں مقامات:", "Prices and details are approximate samples. Confirm the exact package on WhatsApp before paying.": "قیمتیں اور تفصیلات اندازاً نمونہ ہیں۔ ادائیگی سے پہلے واٹس ایپ پر درست پیکج کی تصدیق کر لیں۔", "Close": "بند کریں", "Book now": "ابھی بک کریں", "Cancel": "منسوخ", "WhatsApp": "واٹس ایپ", "Confirm Booking": "بکنگ کی تصدیق", "Sending...": "بھیجا جا رہا ہے...", "Full name": "پورا نام", "Email": "ای میل", "Loved by Travelers": "مسافروں کی پسند", "Real stories from people who took off with us.": "ہمارے ساتھ اڑان بھرنے والوں کی سچی کہانیاں۔", "‹ Prev": "‹ پچھلا", "Next ›": "اگلا ›", "Get Flight Deals": "فلائٹ آفرز حاصل کریں", "Join our newsletter for weekly offers. No spam.": "ہفتہ وار آفرز کے لیے ہمارے نیوز لیٹر سے جڑیں۔ کوئی سپیم نہیں۔", "SUBSCRIBE": "سبسکرائب کریں", "Touch the sky. Feel the freedom.": "آسمان کو چھوئیں۔ آزادی محسوس کریں۔", "EXPLORE": "دریافت کریں", "COMPANY": "کمپنی", "Destinations": "منزلیں", "Reviews": "جائزے", "Newsletter": "نیوز لیٹر", "About": "ہمارے بارے میں", "Privacy": "رازداری", "WhatsApp: 0348 4780615": "واٹس ایپ: 0348 4780615", "From and To can’t be the same place.": "روانگی اور منزل ایک جیسی نہیں ہو سکتیں۔", "Please pick a future date.": "براہ کرم آنے والی تاریخ چنیں۔", "Showing all destinations": "تمام منزلیں دکھائی جا رہی ہیں", "Please enter your name.": "براہ کرم اپنا نام لکھیں۔", "Please enter a valid email.": "براہ کرم درست ای میل لکھیں۔", "Subscribed! Watch your inbox for deals.": "سبسکرائب ہو گیا! آفرز کے لیے اپنا ان باکس دیکھتے رہیں۔", "Opening your email app to send the request...": "درخواست بھیجنے کے لیے آپ کی ای میل ایپ کھل رہی ہے...", "Opening your email app to finish subscribing...": "سبسکرائب مکمل کرنے کے لیے ای میل ایپ کھل رہی ہے...", "Why Travel With Us": "ہمارے ساتھ سفر کیوں", "Simple, clear and always one message away.": "آسان، واضح اور ہمیشہ ایک پیغام کی دوری پر۔", "WhatsApp support": "واٹس ایپ پر رابطہ", "Message us on WhatsApp and skip long forms.": "واٹس ایپ پر پیغام بھیجیں، لمبے فارم بھرنے کی ضرورت نہیں۔", "Simple booking": "آسان بکنگ", "Pick a destination, send your details, and we handle the rest.": "منزل چنیں، تفصیل بھیجیں، باقی کام ہم پر چھوڑ دیں۔", "Handpicked places": "چنی ہوئی منزلیں", "From Hunza and Skardu to Paris and Singapore, chosen for great views.": "ہنزہ اور سکردو سے پیرس اور سنگاپور تک، شاندار نظاروں کے لیے منتخب۔", "Clear details": "واضح معلومات", "See duration, best season and flight time before you decide.": "فیصلے سے پہلے مدت، بہترین موسم اور پرواز کا وقت دیکھیں۔", "Frequently Asked Questions": "اکثر پوچھے جانے والے سوالات", "How do I book a trip?": "سفر کیسے بک کروں؟", "Choose a destination, press Book, and send your name and email. You can also message us directly on WhatsApp.": "منزل چنیں، بک کریں پر کلک کریں اور اپنا نام اور ای میل بھیجیں۔ آپ براہ راست واٹس ایپ پر بھی پیغام بھیج سکتے ہیں۔", "Are the prices final?": "کیا قیمتیں حتمی ہیں؟", "Prices shown are starting prices per person. The final price depends on dates, hotel and number of travelers.": "دکھائی گئی قیمتیں فی کس ابتدائی ہیں۔ حتمی قیمت تاریخوں، ہوٹل اور مسافروں کی تعداد پر منحصر ہے۔", "When do I pay?": "ادائیگی کب کرنی ہوتی ہے؟", "We confirm your package with you on WhatsApp first, then share payment details.": "پہلے ہم واٹس ایپ پر آپ کے پیکج کی تصدیق کرتے ہیں، پھر ادائیگی کی تفصیل بھیجتے ہیں۔", "Can I change or cancel my booking?": "کیا بکنگ بدل یا منسوخ ہو سکتی ہے؟", "Message us on WhatsApp. Terms depend on the airline and hotel.": "واٹس ایپ پر ہمیں پیغام کریں۔ شرائط ایئرلائن اور ہوٹل پر منحصر ہیں۔", "Do you help with visas?": "کیا آپ ویزا میں مدد کرتے ہیں؟", "We can guide you about the required documents. Final approval is always decided by the embassy.": "ہم مطلوبہ کاغذات کے بارے میں رہنمائی کر سکتے ہیں۔ حتمی منظوری ہمیشہ سفارت خانہ دیتا ہے۔"};
+Object.assign(UR,{"CONTACT": "رابطہ", "Honeymoon": "ہنی مون", "Family": "فیملی", "Budget": "بجٹ", "Standard": "اسٹینڈرڈ", "Luxury": "لگژری", "Trip Packages": "سفر کے پیکج", "Pick the style of trip that fits you.": "اپنے مزاج کے مطابق سفر چنیں۔", "Honeymoon trips": "ہنی مون سفر", "Romantic beaches, city lights and quiet valleys.": "رومانوی ساحل، شہروں کی روشنیاں اور پرسکون وادیاں۔", "Family trips": "فیملی سفر", "Easy, safe and fun for every age.": "ہر عمر کے لیے آسان، محفوظ اور پرلطف۔", "Budget trips": "بجٹ سفر", "Great places that keep costs low.": "شاندار جگہیں جو خرچ کم رکھتی ہیں۔", "See trips": "سفر دیکھیں", "Trip Cost Estimator": "سفر کے خرچ کا اندازہ", "Get a quick idea of your budget. The final price is confirmed on WhatsApp.": "اپنے بجٹ کا فوری اندازہ لگائیں۔ حتمی قیمت واٹس ایپ پر طے ہوتی ہے۔", "Destination": "منزل", "Travelers": "مسافر", "Nights": "راتیں", "Hotel class": "ہوٹل کا درجہ", "ESTIMATED TOTAL": "اندازاً کل خرچ", "Book this trip": "یہ سفر بک کریں", "Send on WhatsApp": "واٹس ایپ پر بھیجیں", "Estimate only. Flights, visa and extras can change the final price.": "صرف اندازہ ہے۔ پرواز، ویزا اور دیگر اخراجات سے حتمی قیمت بدل سکتی ہے۔", "VISA (PAKISTANI PASSPORT)": "ویزا (پاکستانی پاسپورٹ)", "Visa rules change often. Always confirm with the embassy before booking.": "ویزا کے قوانین اکثر بدلتے رہتے ہیں۔ بکنگ سے پہلے سفارت خانے سے تصدیق ضرور کریں۔", "Contact Us": "ہم سے رابطہ", "Reach us on WhatsApp or email. We reply as soon as we can.": "واٹس ایپ یا ای میل پر ہم سے رابطہ کریں۔ ہم جلد از جلد جواب دیتے ہیں۔", "Chat on WhatsApp": "واٹس ایپ پر بات کریں", "Send an email": "ای میل بھیجیں", "Terms": "شرائط"});
+const norm=t=>t.replace(/\s+/g," ").trim();
+const h1=$("h1"),H1EN=h1.innerHTML,H1UR='آسمان کو<br><span>چھوئیں۔</span> آزادی کو<br>محسوس کریں۔';
+let applying=false,tmr;
+const obs=new MutationObserver(()=>{if(applying)return;clearTimeout(tmr);tmr=setTimeout(applyLang,30)});
+function applyLang(){
+  applying=true;const ur=lang==="ur";
+  document.documentElement.lang=ur?"ur":"en";document.documentElement.dir=ur?"rtl":"ltr";
+  const want=ur?H1UR:H1EN;if(h1.innerHTML!==want)h1.innerHTML=want;
+  const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);const nodes=[];let n;while(n=w.nextNode())nodes.push(n);
+  nodes.forEach(n=>{
+    if(n.parentElement.closest("script,style,h1"))return;
+    const raw=n.__o!==undefined?n.__o:n.nodeValue;const m=raw.match(/^(\s*)([\s\S]*?)(\s*)$/);if(!m[2])return;
+    if(n.__o===undefined)n.__o=raw;
+    const v=UR[norm(m[2])];n.nodeValue=ur&&v?m[1]+v+m[3]:raw;
+  });
+  document.querySelectorAll("[placeholder],[aria-label]").forEach(el=>["placeholder","aria-label"].forEach(a=>{
+    if(!el.hasAttribute(a))return;const k="_o"+a;if(el[k]===undefined)el[k]=el.getAttribute(a);
+    const v=UR[norm(el[k])];el.setAttribute(a,ur&&v?v:el[k]);}));
+  $("#langBtn").textContent=ur?"English":"اردو";
+  obs.takeRecords();applying=false;
+}
+$("#langBtn").onclick=()=>{lang=lang==="ur"?"en":"ur";try{localStorage.setItem("sj-lang",lang)}catch(e){}applyLang()};
+try{if(localStorage.getItem("sj-lang")==="ur")lang="ur"}catch(e){}
+applyLang();
+obs.observe(document.body,{childList:true,subtree:true,characterData:true});
+</script>
+</body>
+</html>
